@@ -1,3 +1,4 @@
+import axios from 'axios'
 import Layout from '../components/common/layout'
 
 // export default () => (
@@ -13,8 +14,9 @@ const About = ({ stars }) => (
 )
 
 About.getInitialProps = async ({ req }) => {
-  const res = await fetch('https://api.github.com/repos/zeit/next.js')
-  const json = await res.json()
+  // const res = await fetch('https://api.github.com/repos/zeit/next.js')
+  const res = await axios.get('https://api.github.com/repos/zeit/next.js')
+  const json = res.data
   return { stars: json.stargazers_count }
 }
 

@@ -8,7 +8,7 @@ export default ({
   <div>
     <Head>
       <title>{title}</title>
-      <meta charset="utf8" />
+      <meta charSet="utf8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     </Head>
 
@@ -24,6 +24,14 @@ export default ({
         |
         <Link href="/profile">
           <a>Profile</a>
+        </Link>
+        |
+        <Link href="/todolist">
+          <a>Todolist</a>
+        </Link>
+        |
+        <Link href="/aaaa">
+          <a>Aaaa</a>
         </Link>
       </nav>
     </header>
