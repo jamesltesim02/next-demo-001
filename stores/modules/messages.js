@@ -2,11 +2,11 @@ import { types } from 'mobx-state-tree'
 
 let idSeq = 0
 
-const Message = types
+export const Message = types
   .model('Message', {
     id: types.integer,
     title: types.string,
-    readed: types.boolean,
+    readed: false,
     content: types.string,
     sendTime: types.Date,
     from: types.string
@@ -17,7 +17,7 @@ const Message = types
     }
   }))
 
-const Messages = types
+export const Messages = types
   .model('Messages' , {
     list: types.array(Message)
   })
@@ -30,11 +30,15 @@ const Messages = types
     },
     get messageCount () {
       return self.list.length
+    },
+    get (id) {
+      return self.list.find(m => m.id === id)
     }
   }))
   .actions(self => ({
     add (msg) {
       msg.id = ++ idSeq
+      msg.sendTime = new Date()
       self.list.push(Message.create(msg))
     },
     remove (id) {
@@ -45,4 +49,3 @@ const Messages = types
     }
   }))
 
-export default Messages
