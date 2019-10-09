@@ -1515,7 +1515,7 @@ async function loadGetInitialProps(Component, ctx) {
 
   if (true) {
     if (_Object$keys(props).length === 0 && !ctx.ctx) {
-      console.warn(`${getDisplayName(Component)} returned an empty object from \`getInitialProps\`. This de-optimizes and prevents automatic prerendering. https://err.sh/zeit/next.js/empty-object-getInitialProps`);
+      console.warn(`${getDisplayName(Component)} returned an empty object from \`getInitialProps\`. This de-optimizes and prevents automatic static optimization. https://err.sh/zeit/next.js/empty-object-getInitialProps`);
     }
   }
 
@@ -1717,28 +1717,173 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_app__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var mobx_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! mobx-react */ "mobx-react");
+/* harmony import */ var mobx_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(mobx_react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var mobx_state_tree__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! mobx-state-tree */ "mobx-state-tree");
+/* harmony import */ var mobx_state_tree__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(mobx_state_tree__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _stores__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../stores */ "./stores/index.js");
 
 var _jsxFileName = "/Users/connor/workspaces/demos/next-demo-001/pages/_app.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement;
 
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = (class extends next_app__WEBPACK_IMPORTED_MODULE_1___default.a {
+  static async getInitialProps({
+    Component,
+    ctx
+  }) {
+    //
+    // Use getInitialProps as a step in the lifecycle when
+    // we can initialize our store
+    //
+    const isServer = true;
+    const store = Object(_stores__WEBPACK_IMPORTED_MODULE_5__["initializeStore"])(isServer); //
+    // Check whether the page being rendered by the App has a
+    // static getInitialProps method and if so call it
+    //
+
+    let pageProps = {};
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+
+    return {
+      initialState: Object(mobx_state_tree__WEBPACK_IMPORTED_MODULE_4__["getSnapshot"])(store),
+      isServer,
+      pageProps
+    };
+  }
+
+  constructor(props) {
+    super(props);
+    this.store = Object(_stores__WEBPACK_IMPORTED_MODULE_5__["initializeStore"])(props.isServer, props.initialState);
+  }
+
   render() {
     const {
       Component,
       pageProps
     } = this.props;
     console.log('....自定义 app, 可以添加插件等全局初始化操作, 每个page初始化时都会执行');
-    return __jsx(Component, Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, pageProps, {
+    return __jsx(mobx_react__WEBPACK_IMPORTED_MODULE_3__["Provider"], {
+      store: this.store,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 12
+        lineNumber: 42
       },
       __self: this
-    }));
+    }, __jsx(Component, Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, pageProps, {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 43
+      },
+      __self: this
+    })));
   }
 
 });
+
+/***/ }),
+
+/***/ "./stores/index.js":
+/*!*************************!*\
+  !*** ./stores/index.js ***!
+  \*************************/
+/*! exports provided: initializeStore */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initializeStore", function() { return initializeStore; });
+/* harmony import */ var mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mobx-state-tree */ "mobx-state-tree");
+/* harmony import */ var mobx_state_tree__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _modules_messages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/messages */ "./stores/modules/messages.js");
+
+
+let store = null;
+const Store = mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__["types"].model({
+  // messages: types.reference(Messages)
+  messages: _modules_messages__WEBPACK_IMPORTED_MODULE_1__["default"]
+});
+const initializeStore = (isServer, snapshot = null) => {
+  if (isServer || store === null) {
+    store = Store.create({
+      messages: _modules_messages__WEBPACK_IMPORTED_MODULE_1__["default"].create({
+        list: []
+      })
+    });
+  }
+
+  if (snapshot) {
+    Object(mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__["applySnapshot"])(store, snapshot);
+  }
+
+  return store;
+};
+
+/***/ }),
+
+/***/ "./stores/modules/messages.js":
+/*!************************************!*\
+  !*** ./stores/modules/messages.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mobx-state-tree */ "mobx-state-tree");
+/* harmony import */ var mobx_state_tree__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__);
+
+let idSeq = 0;
+const Message = mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__["types"].model('Message', {
+  id: mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__["types"].integer,
+  title: mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__["types"].string,
+  readed: mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__["types"].boolean,
+  content: mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__["types"].string,
+  sendTime: mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__["types"].Date,
+  from: mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__["types"].string
+}).actions(self => ({
+  read() {
+    self.readed = true;
+  }
+
+}));
+const Messages = mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__["types"].model('Messages', {
+  list: mobx_state_tree__WEBPACK_IMPORTED_MODULE_0__["types"].array(Message)
+}).views(self => ({
+  get unReadList() {
+    return self.list.filter(m => !m.readed);
+  },
+
+  get unReadCount() {
+    return self.unReadList.length;
+  },
+
+  get messageCount() {
+    return self.list.length;
+  }
+
+})).actions(self => ({
+  add(msg) {
+    msg.id = ++idSeq;
+    self.list.push(Message.create(msg));
+  },
+
+  remove(id) {
+    const index = self.list.findIndex(m => m.id === id);
+
+    if (index > -1) {
+      self.list.splice(index, 1);
+    }
+  }
+
+}));
+/* harmony default export */ __webpack_exports__["default"] = (Messages);
 
 /***/ }),
 
@@ -1817,6 +1962,28 @@ module.exports = require("core-js/library/fn/object/keys");
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/library/fn/promise");
+
+/***/ }),
+
+/***/ "mobx-react":
+/*!*****************************!*\
+  !*** external "mobx-react" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("mobx-react");
+
+/***/ }),
+
+/***/ "mobx-state-tree":
+/*!**********************************!*\
+  !*** external "mobx-state-tree" ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("mobx-state-tree");
 
 /***/ }),
 

@@ -6358,7 +6358,7 @@ function initializeBuildWatcher() {
 function createContainer(prefix) {
   var container = document.createElement('div');
   container.id = prefix + "container";
-  container.innerHTML = "\n    <button id=\"" + prefix + "close\" title=\"Hide indicator for session\">\n      <span>\xD7</span>\n    </button>\n    <a href=\"https://nextjs.org/docs#automatic-prerender-indicator\" target=\"_blank\">\n      <div id=\"" + prefix + "icon-wrapper\">\n          <svg width=\"15\" height=\"20\" viewBox=\"0 0 60 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n          <path d=\"M36 3L30.74 41H8L36 3Z\" fill=\"black\"/>\n          <path d=\"M25 77L30.26 39H53L25 77Z\" fill=\"black\"/>\n          <path d=\"M13.5 33.5L53 39L47.5 46.5L7 41.25L13.5 33.5Z\" fill=\"black\"/>\n          </svg>\n          Prerendered Page\n      </div>\n    </a>\n  ";
+  container.innerHTML = "\n    <button id=\"" + prefix + "close\" title=\"Hide indicator for session\">\n      <span>\xD7</span>\n    </button>\n    <a href=\"https://nextjs.org/docs#automatic-static-optimization-indicator\" target=\"_blank\">\n      <div id=\"" + prefix + "icon-wrapper\">\n          <svg width=\"15\" height=\"20\" viewBox=\"0 0 60 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n          <path d=\"M36 3L30.74 41H8L36 3Z\" fill=\"black\"/>\n          <path d=\"M25 77L30.26 39H53L25 77Z\" fill=\"black\"/>\n          <path d=\"M13.5 33.5L53 39L47.5 46.5L7 41.25L13.5 33.5Z\" fill=\"black\"/>\n          </svg>\n          Prerendered Page\n      </div>\n    </a>\n  ";
   return container;
 }
 
@@ -6663,7 +6663,7 @@ if (!window.Promise) {
 
 var data = JSON.parse(document.getElementById('__NEXT_DATA__').textContent);
 window.__NEXT_DATA__ = data;
-var version = "9.0.7";
+var version = "9.1.1";
 exports.version = version;
 var props = data.props,
     err = data.err,
@@ -6690,9 +6690,9 @@ var asPath = (0, _utils.getURL)();
 var pageLoader = new _pageLoader["default"](buildId, prefix);
 
 var register = function register(_ref) {
-  var _ref6 = _slicedToArray(_ref, 2),
-      r = _ref6[0],
-      f = _ref6[1];
+  var _ref7 = _slicedToArray(_ref, 2),
+      r = _ref7[0],
+      f = _ref7[1];
 
   return pageLoader.registerPage(r, f);
 };
@@ -6712,7 +6712,7 @@ exports.router = router;
 var ErrorComponent;
 exports.ErrorComponent = ErrorComponent;
 var Component;
-var App;
+var App, onPerfEntry;
 
 var Container =
 /*#__PURE__*/
@@ -6785,29 +6785,46 @@ function () {
   var _ref2 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(_temp) {
-    var _ref7, passedWebpackHMR, initialErr, _require, isValidElementType, renderCtx;
+    var _ref8, passedWebpackHMR, _ref9, app, mod, initialErr, _require, isValidElementType, renderCtx;
 
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _ref7 = _temp === void 0 ? {} : _temp, passedWebpackHMR = _ref7.webpackHMR; // This makes sure this specific lines are removed in production
+            _ref8 = _temp === void 0 ? {} : _temp, passedWebpackHMR = _ref8.webpackHMR; // This makes sure this specific lines are removed in production
 
             if (true) {
               webpackHMR = passedWebpackHMR;
             }
 
             _context.next = 4;
-            return pageLoader.loadPage('/_app');
+            return pageLoader.loadPageScript('/_app');
 
           case 4:
-            App = _context.sent;
+            _ref9 = _context.sent;
+            app = _ref9.page;
+            mod = _ref9.mod;
+            App = app;
+
+            if (mod && mod.unstable_onPerformanceData) {
+              onPerfEntry = function onPerfEntry(_ref3) {
+                var name = _ref3.name,
+                    startTime = _ref3.startTime,
+                    value = _ref3.value;
+                mod.unstable_onPerformanceData({
+                  name: name,
+                  startTime: startTime,
+                  value: value
+                });
+              };
+            }
+
             initialErr = err;
-            _context.prev = 6;
-            _context.next = 9;
+            _context.prev = 10;
+            _context.next = 13;
             return pageLoader.loadPage(page);
 
-          case 9:
+          case 13:
             Component = _context.sent;
 
             if (false) {}
@@ -6815,32 +6832,32 @@ function () {
             _require = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js"), isValidElementType = _require.isValidElementType;
 
             if (isValidElementType(Component)) {
-              _context.next = 14;
+              _context.next = 18;
               break;
             }
 
             throw new Error("The default export is not a React Component in page: \"" + page + "\"");
 
-          case 14:
-            _context.next = 19;
+          case 18:
+            _context.next = 23;
             break;
 
-          case 16:
-            _context.prev = 16;
-            _context.t0 = _context["catch"](6);
+          case 20:
+            _context.prev = 20;
+            _context.t0 = _context["catch"](10);
             // This catches errors like throwing in the top level of a module
             initialErr = _context.t0;
 
-          case 19:
+          case 23:
             if (!window.__NEXT_PRELOADREADY) {
-              _context.next = 22;
+              _context.next = 26;
               break;
             }
 
-            _context.next = 22;
+            _context.next = 26;
             return window.__NEXT_PRELOADREADY(dynamicIds);
 
-          case 22:
+          case 26:
             exports.router = router = (0, _router.createRouter)(page, query, asPath, {
               initialProps: props,
               pageLoader: pageLoader,
@@ -6848,10 +6865,10 @@ function () {
               Component: Component,
               wrapApp: wrapApp,
               err: initialErr,
-              subscription: function subscription(_ref3, App) {
-                var Component = _ref3.Component,
-                    props = _ref3.props,
-                    err = _ref3.err;
+              subscription: function subscription(_ref4, App) {
+                var Component = _ref4.Component,
+                    props = _ref4.props,
+                    err = _ref4.err;
                 render({
                   App: App,
                   Component: Component,
@@ -6871,12 +6888,12 @@ function () {
             render(renderCtx);
             return _context.abrupt("return", emitter);
 
-          case 26:
+          case 30:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[6, 16]]);
+    }, _callee, null, [[10, 20]]);
   }));
 
   return function (_x) {
@@ -7030,27 +7047,15 @@ function renderReactElement(reactEl, domEl) {
 
 
   if (isInitialRender) {
-    _reactDom["default"].hydrate(reactEl, domEl, function () {
-      if (true) {
-        document.querySelectorAll('[data-next-hydrating]').forEach(function (el) {
-          el.remove();
-        });
-      }
-
-      markHydrateComplete();
-    });
+    _reactDom["default"].hydrate(reactEl, domEl, markHydrateComplete);
 
     isInitialRender = false;
   } else {
-    _reactDom["default"].render(reactEl, domEl, function () {
-      if (true) {
-        document.querySelectorAll('[data-next-hydrating]').forEach(function (el) {
-          el.remove();
-        });
-      }
+    _reactDom["default"].render(reactEl, domEl, markRenderComplete);
+  }
 
-      markRenderComplete();
-    });
+  if (onPerfEntry) {
+    performance.getEntriesByType('paint').forEach(onPerfEntry);
   }
 }
 
@@ -7060,6 +7065,12 @@ function markHydrateComplete() {
 
   performance.measure('Next.js-before-hydration', 'navigationStart', 'beforeRender');
   performance.measure('Next.js-hydration', 'beforeRender', 'afterHydrate');
+
+  if (onPerfEntry) {
+    performance.getEntriesByName('Next.js-hydration').forEach(onPerfEntry);
+    performance.getEntriesByName('beforeRender').forEach(onPerfEntry);
+  }
+
   clearMarks();
 }
 
@@ -7075,6 +7086,12 @@ function markRenderComplete() {
 
   performance.measure('Next.js-route-change-to-render', navStartEntries[0].name, 'beforeRender');
   performance.measure('Next.js-render', 'beforeRender', 'afterRender');
+
+  if (onPerfEntry) {
+    performance.getEntriesByName('Next.js-render').forEach(onPerfEntry);
+    performance.getEntriesByName('Next.js-route-change-to-render').forEach(onPerfEntry);
+  }
+
   clearMarks();
 }
 
@@ -7083,15 +7100,13 @@ function clearMarks() {
   ['beforeRender', 'afterHydrate', 'afterRender', 'routeChange'].forEach(function (mark) {
     return performance.clearMarks(mark);
   });
-  /*
-  * TODO: uncomment the following line when we have a way to
-  * expose this to user code.
-  */
-  // performance.clearMeasures()
+  ['Next.js-before-hydration', 'Next.js-hydration', 'Next.js-route-change-to-render', 'Next.js-render'].forEach(function (measure) {
+    return performance.clearMeasures(measure);
+  });
 }
 
-function AppContainer(_ref4) {
-  var children = _ref4.children;
+function AppContainer(_ref5) {
+  var children = _ref5.children;
   return _react["default"].createElement(Container, {
     fn: function fn(error) {
       return renderError({
@@ -7128,14 +7143,14 @@ function doRender(_x4) {
 function _doRender() {
   _doRender = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee4(_ref5) {
+  _regeneratorRuntime.mark(function _callee4(_ref6) {
     var App, Component, props, err, _router2, pathname, _query, _asPath, AppTree, appCtx, appProps;
 
     return _regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            App = _ref5.App, Component = _ref5.Component, props = _ref5.props, err = _ref5.err; // Usual getInitialProps fetching is handled in next/router
+            App = _ref6.App, Component = _ref6.Component, props = _ref6.props, err = _ref6.err; // Usual getInitialProps fetching is handled in next/router
             // this is for when ErrorComponent gets replaced by Component by HMR
 
             if (!(!props && Component && Component !== ErrorComponent && lastAppProps.Component === ErrorComponent)) {
@@ -7252,8 +7267,17 @@ window.next = next;
   if ( true && // disable by default in electron
   !(typeof process !== 'undefined' && 'electron' in process.versions)) {
     (0, _prerenderIndicator["default"])();
-  }
+  } // This is the fallback helper that removes Next.js' no-FOUC styles when
+  // CSS mode is enabled. This only really activates if you haven't created
+  // _any_ styles in your application yet.
 
+
+  ;
+  (window.requestAnimationFrame || setTimeout)(function () {
+    for (var x = document.querySelectorAll('[data-next-hide-fouc]'), i = x.length; i--;) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  });
   var lastScroll;
   emitter.on('before-reactdom-render', function (_ref) {
     var Component = _ref.Component,
@@ -7376,13 +7400,21 @@ function () {
   }, {
     key: "loadPage",
     value: function loadPage(route) {
+      return this.loadPageScript(route).then(function (v) {
+        return v.page;
+      });
+    }
+  }, {
+    key: "loadPageScript",
+    value: function loadPageScript(route) {
       var _this3 = this;
 
       route = this.normalizeRoute(route);
       return new _promise["default"](function (resolve, reject) {
         var fire = function fire(_ref) {
           var error = _ref.error,
-              page = _ref.page;
+              page = _ref.page,
+              mod = _ref.mod;
 
           _this3.pageRegisterEvents.off(route, fire);
 
@@ -7391,7 +7423,10 @@ function () {
           if (error) {
             reject(error);
           } else {
-            resolve(page);
+            resolve({
+              page: page,
+              mod: mod
+            });
           }
         }; // If there's a cached version of the page, let's use it.
 
@@ -7400,8 +7435,12 @@ function () {
 
         if (cachedPage) {
           var error = cachedPage.error,
-              page = cachedPage.page;
-          error ? reject(error) : resolve(page);
+              page = cachedPage.page,
+              mod = cachedPage.mod;
+          error ? reject(error) : resolve({
+            page: page,
+            mod: mod
+          });
           return;
         } // Register a listener to get the page
 
@@ -9210,7 +9249,7 @@ function _loadGetInitialProps() {
           case 15:
             if (true) {
               if (_Object$keys(props).length === 0 && !ctx.ctx) {
-                console.warn("".concat(getDisplayName(Component), " returned an empty object from `getInitialProps`. This de-optimizes and prevents automatic prerendering. https://err.sh/zeit/next.js/empty-object-getInitialProps"));
+                console.warn("".concat(getDisplayName(Component), " returned an empty object from `getInitialProps`. This de-optimizes and prevents automatic static optimization. https://err.sh/zeit/next.js/empty-object-getInitialProps"));
               }
             }
 

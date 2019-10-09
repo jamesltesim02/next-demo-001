@@ -26,7 +26,7 @@ export default class extends Component {
         <div className="profile">
           profile page. {this.props.userAgent}
         </div>
-        <img src="/static/images/es350.jpg" />
+        <img src="/images/es350.jpg" />
       </Layout>
     )
   }

@@ -37,15 +37,15 @@ class TodoListView extends Component {
     if (!title) {
       return
     }
-    // this.props.store.todos.push(new Todo(title))
-    this.props.store.addTodo(title)
+    // this.props.todos.todos.push(new Todo(title))
+    this.props.todos.addTodo(title)
     this.setState({ title: '' })
   }
 
   render () {
     return (
       <div>
-        <h4>待完成数: {this.props.store.unfinishedTodoCount}</h4>
+        <h4>待完成数: {this.props.todos.unfinishedTodoCount}</h4>
         <div>
           <input
             placeholder="请输入代办事项标题"
@@ -56,7 +56,7 @@ class TodoListView extends Component {
         </div>
         <ul>
           {
-            this.props.store.todos.map(todo => (
+            this.props.todos.todos.map(todo => (
               <li key={todo.id}><TodoView todo={todo} /></li>
             ))
           }

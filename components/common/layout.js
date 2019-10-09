@@ -30,6 +30,10 @@ export default ({
           <a>Todolist</a>
         </Link>
         |
+        <Link href="/messages">
+          <a>Messages</a>
+        </Link>
+        |
         <Link href="/aaaa">
           <a>Aaaa</a>
         </Link>
