@@ -9,14 +9,21 @@ export default class extends React.Component {
   render() {
     const {
       list,
-      messageCount
+      messageCount,
+      remove
     } = this.props.store.messages
 
     return (
       <ul>
         {
           messageCount
-          ? list.map(m => <MessageItem key={m.id} message={m} />)
+          ? list.map(m => (
+            <MessageItem
+              key={m.id}
+              message={m}
+              onDelete={() => { remove(m.id) }}
+            />
+          ))
           : <li>no records</li>
         }
         <style jsx>{`

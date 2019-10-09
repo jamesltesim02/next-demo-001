@@ -2,13 +2,13 @@ import { observer } from 'mobx-react'
 
 import dateFormat from '../../utils/dateFormat'
 
-export default observer(({ message }) => (
+export default observer(({ message, onDelete = () => {} }) => (
   <li className={message.readed ? '' : 'un-read'}>
-    <div className="content">
+    <div>
       <h3>{message.title}</h3>
       <p>{message.content}</p>
     </div>
-    <div className="sender">
+    <div>
       <time>{
         dateFormat(message.sendTime, 'MM/dd HH:mm')
       }</time>
@@ -18,8 +18,9 @@ export default observer(({ message }) => (
       {
         message.readed
         ? null
-        : <button>标记已读</button>
+        : <button onClick={message.read}>已读</button>
       }
+      <button onClick={onDelete}>删除</button>
     </div>
     <style jsx>{`
       li {
@@ -29,15 +30,14 @@ export default observer(({ message }) => (
         align-items: center;
         color: #929292;
         width: 100%;
+        overflow: hidden;
+      }
+      li div {
+        width: 100%;
+        overflow: hidden;
       }
       li.un-read {
         color: #2f2a2a;
-      }
-      li .content {
-        width: 70%;
-      }
-      li .sender {
-        width: 20%;
       }
       li h3, li p {
         padding: 0;
