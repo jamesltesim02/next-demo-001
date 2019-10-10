@@ -1,20 +1,23 @@
+import Link from 'next/link'
 import { observer } from 'mobx-react'
 
-import dateFormat from '../../utils/dateFormat'
+import dateFormat from '../../utils/date-format'
 
 export default observer(({ message, onDelete = () => {} }) => (
   <li className={message.readed ? '' : 'un-read'}>
-    <div>
+    <Link href={`/messages/detail?id=${message.id}`}>
+    <a className="content">
       <h3>{message.title}</h3>
       <p>{message.content}</p>
-    </div>
+    </a>
+    </Link>
     <div>
       <time>{
         dateFormat(message.sendTime, 'MM/dd HH:mm')
       }</time>
       <span>{message.from}</span>
     </div>
-    <div>
+    <div className="opers">
       {
         message.readed
         ? null
@@ -28,15 +31,21 @@ export default observer(({ message, onDelete = () => {} }) => (
         display: grid;
         grid-template-columns: 7fr 2fr 1fr;
         align-items: center;
+        width: 100%;
+        overflow: hidden;
         color: #929292;
+      }
+      li div, li .content {
         width: 100%;
         overflow: hidden;
       }
-      li div {
-        width: 100%;
-        overflow: hidden;
+      li a {
+        color: #929292;
+        text-decoration: none;
+        cursor: pointer;
       }
-      li.un-read {
+      li.un-read,
+      li.un-read a{
         color: #2f2a2a;
       }
       li h3, li p {
@@ -48,6 +57,7 @@ export default observer(({ message, onDelete = () => {} }) => (
         display: block;
         text-align: center;
         font-size: 12px;
+        cursor: default;
       }
       li h3 {
         overflow: hidden;
@@ -62,6 +72,9 @@ export default observer(({ message, onDelete = () => {} }) => (
         overflow: hidden;
         text-overflow: ellipsis;
         height: 36px;
+      }
+      li .opers {
+        text-align: center;
       }
     `}</style>
   </li>

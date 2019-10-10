@@ -1,9 +1,9 @@
-import Layout from '../components/common/layout'
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 
-import Sender from '../components/message/message-sender'
-import MessageList from '../components/message/message-list'
+import Layout from '../../components/common/layout'
+import Sender from '../../components/message/message-sender'
+import MessageList from '../../components/message/message-list'
 
 @inject('store')
 @observer

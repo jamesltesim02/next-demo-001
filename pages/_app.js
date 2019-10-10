@@ -3,6 +3,7 @@ import React from 'react'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
 import { initializeStore } from '../stores'
+import { isServer } from '../utils/env-utils'
 
 export default class extends App {
 
@@ -11,8 +12,7 @@ export default class extends App {
     // Use getInitialProps as a step in the lifecycle when
     // we can initialize our store
     //
-    const isServer = typeof window === 'undefined'
-    const store = initializeStore(isServer)
+    const store = initializeStore(isServer())
     //
     // Check whether the page being rendered by the App has a
     // static getInitialProps method and if so call it

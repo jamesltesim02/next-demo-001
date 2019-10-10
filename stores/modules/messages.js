@@ -32,14 +32,14 @@ export const Messages = types
       return self.list.length
     },
     get (id) {
-      return self.list.find(m => m.id === id)
+      return self.list.find(m => m.id === Number(id))
     }
   }))
   .actions(self => ({
     add (msg) {
       msg.id = ++ idSeq
       msg.sendTime = new Date()
-      self.list.push(Message.create(msg))
+      self.list.unshift(Message.create(msg))
     },
     remove (id) {
       const index = self.list.findIndex(m => m.id === id)
