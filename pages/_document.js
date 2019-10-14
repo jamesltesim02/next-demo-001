@@ -6,20 +6,8 @@ export default class extends Document {
 
   constructor() {
     super()
-    const self = this;
     this.state = {
-      configs: {}
     };
-    if (isServer()) {
-      const sconf = require('../public/config')
-      this.state.configs = sconf
-    } else {
-      const cconf = import('../public/config')
-      cconf.then((ccontent) => {
-        console.log('client config:', ccontent)
-        self.state.configs = ccontent
-      })
-    }
   }
 
   render () {
@@ -27,17 +15,15 @@ export default class extends Document {
 
     return (
         <html>
-          <Head>
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{
-                __html: `window.SystemConfig = ${JSON.stringify(this.state.configs)}`
-              }}
-            ></script>
-          </Head>
+          <Head/>
           <body>
             <Main />
             <NextScript />
+            <div style={{
+              display: 'hidden'
+            }}>
+              {process.env.NODE_ENV}
+            </div>
           </body>
         </html>
     )

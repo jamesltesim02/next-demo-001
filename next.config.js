@@ -39,6 +39,12 @@
 // module.exports = withCSS({});
 // module.exports = withSass({});
 
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
-  // distDir: 'dist'
+  // distDir: 'dist',
+  generateBuildId: () => 'nd-build-001',
+  assetPrefix: isProd ? 'http://10.96.17.107:3800/' : '',
+  publicRuntimeConfig: {
+  }
 }

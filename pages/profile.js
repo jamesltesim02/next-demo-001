@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import Layout from '../components/common/layout'
+import Image from '../components/common/image'
 
 // export default () => (
 //   <Layout>
@@ -9,6 +10,8 @@ import Layout from '../components/common/layout'
 // )
 
 // import '../static/styles/profile.scss'
+
+// import ES350 from '../public/images/es350.jpg'
 
 export default class extends Component {
 
@@ -26,7 +29,9 @@ export default class extends Component {
         <div className="profile">
           profile page. {this.props.userAgent}
         </div>
-        <img src="/images/es350.jpg" />
+        {/* <img src="/images/es350.jpg" /> */}
+        {/* <img src={ES350} /> */}
+        <Image src="/images/es350.jpg" />
       </Layout>
     )
   }
