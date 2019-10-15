@@ -39,12 +39,12 @@
 // module.exports = withCSS({});
 // module.exports = withSass({});
 
-const isProd = process.env.NODE_ENV === 'production'
+const withNextImage = require('next-images')
+const OpsConfig = require('./configs/config.ops')
 
-module.exports = {
+module.exports = withNextImage({
   // distDir: 'dist',
   generateBuildId: () => 'nd-build-001',
-  assetPrefix: isProd ? 'http://10.96.17.107:3800/' : '',
-  publicRuntimeConfig: {
-  }
-}
+  assetPrefix: OpsConfig.CDN_URL,
+  publicRuntimeConfig: OpsConfig
+})

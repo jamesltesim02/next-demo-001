@@ -13,12 +13,13 @@ export default class extends React.Component {
     if (isServer) {
       // this.state.resourceURL = Config.CDN_URL
     } else {
+
       this.state.resourceURL = window.ClientConfig.CDN_URL
     }
   }
 
   render() {
-    console.log('props:', this.props)
+    console.log('props:', this.props.__NEXT_DATA__)
     return (
       <img src={`${this.state.resourceURL}${this.props.src}`} />
       // <img src={`${assetPrefix}${this.props.src}`} />

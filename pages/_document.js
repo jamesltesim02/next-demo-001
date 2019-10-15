@@ -1,5 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document'
-import { isServer } from '../utils/env-utils'
+import Toast from 'react-toast-mobile'
 
 
 export default class extends Document {
@@ -18,9 +18,10 @@ export default class extends Document {
           <Head/>
           <body>
             <Main />
+            <Toast />
             <NextScript />
             <div style={{
-              display: 'hidden'
+              display: 'none'
             }}>
               {process.env.NODE_ENV}
             </div>
