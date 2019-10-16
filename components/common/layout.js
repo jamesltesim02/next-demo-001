@@ -40,6 +40,10 @@ export default inject('store')(
               <a>Messages ({messages.unReadCount})</a>
             </Link>
             |
+            <Link href="/toast">
+              <a>Toast</a>
+            </Link>
+            |
             <Link href="/aaaa">
               <a>Aaaa</a>
             </Link>

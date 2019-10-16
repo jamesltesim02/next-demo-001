@@ -39,12 +39,23 @@
 // module.exports = withCSS({});
 // module.exports = withSass({});
 
+const withPlugins = require('next-compose-plugins')
 const withNextImage = require('next-images')
+const withNextCss = require('@zeit/next-css')
+const withNextLess = require('@zeit/next-less')
+
 const OpsConfig = require('./configs/config.ops')
 
-module.exports = withNextImage({
-  // distDir: 'dist',
-  generateBuildId: () => 'nd-build-001',
-  assetPrefix: OpsConfig.CDN_URL,
-  publicRuntimeConfig: OpsConfig
-})
+module.exports = withPlugins(
+  [
+    withNextCss,
+    withNextLess,
+    withNextImage
+  ],
+  {
+    // distDir: 'dist',
+    generateBuildId: () => 'nd-build-001',
+    assetPrefix: OpsConfig.CDN_URL,
+    publicRuntimeConfig: OpsConfig
+  }
+)

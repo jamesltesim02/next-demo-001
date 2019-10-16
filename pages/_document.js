@@ -1,9 +1,7 @@
 import Document, { Head, Main, NextScript } from 'next/document'
-import Toast from 'react-toast-mobile'
 
 
 export default class extends Document {
-
   constructor() {
     super()
     this.state = {
@@ -18,7 +16,6 @@ export default class extends Document {
           <Head/>
           <body>
             <Main />
-            <Toast />
             <NextScript />
             <div style={{
               display: 'none'

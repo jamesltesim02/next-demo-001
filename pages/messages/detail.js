@@ -27,6 +27,7 @@ class MessageDetail extends React.Component {
       return
     }
 
+    
     this.state.message.read()
   }
 

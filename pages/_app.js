@@ -1,9 +1,15 @@
 import App from 'next/app'
 import React from 'react'
 import { Provider } from 'mobx-react'
+import Toast from 'react-toast-mobile'
+
 import { getSnapshot } from 'mobx-state-tree'
 import { initializeStore } from '../stores'
 import { isServer } from '../utils/env-utils'
+
+import '../public/styles/common.css'
+
+import 'react-toast-mobile/lib/react-toast-mobile.css'
 
 export default class extends App {
 
@@ -40,8 +46,21 @@ export default class extends App {
 
     return (
       <Provider store={this.store}>
-        <Component {...pageProps} />
+        <div className="app-container">
+          <Toast />
+          <Component className="page-component" {...pageProps} />
+        </div>
+        <style global jsx>{`
+          .app-container {
+            width: 100%;
+            height: 100%;
+          }
+          .app-container > div.page-component {
+            min-height: 100%;
+          }
+        `}</style>
       </Provider>
     )
   }
 }
+
