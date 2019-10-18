@@ -8,19 +8,7 @@ import MessageList from '../../components/message/message-list'
 @inject('store')
 @observer
 class MessageComponent extends React.Component {
-
-  static propTypes = {
-    intl: intlShape.isRequired
-  }
-
-  constructor (props) {
-    super(props)
-    this.intl = this.props.intl
-
-  }
-
   render () {
-
     const {
       unReadCount,
       messageCount,
@@ -57,4 +45,4 @@ class MessageComponent extends React.Component {
   }
 }
 
-export default injectIntl(MessageComponent)
+export default MessageComponent

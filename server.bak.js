@@ -10,13 +10,6 @@ const isProd = process.env.NODE_ENV === 'production'
 const app = next({ dev: !isProd })
 const handle = app.getRequestHandler()
 
-// We need to load and expose the translations on the request for the user's
-// locale. These will only be used in production, in dev the `defaultMessage` in
-// each message description in the source code will be used.
-const getMessages = locale => {
-  return require(`./public/locales/${locale}.js`)
-}
-
 // nextjs服务端对象准备就绪
 app.prepare().then(() => {
   const server = express()
@@ -24,11 +17,16 @@ app.prepare().then(() => {
   // 构造语言环境路由匹配的正则
   const localeRegExp = new RegExp(`^\/((${devConfig.locales.join(')|(')}))`, 'i')
 
+  console.log('locales regexp:', localeRegExp)
+
   // 路由拦截获取默认语言
   server.get(localeRegExp, (req, res) => {
     let url = null
     let locale = null
     const pathMatchResult = req.path.match(localeRegExp)
+
+    console.log(req.path)
+    console.log('path match result:', pathMatchResult)
 
     if (pathMatchResult && pathMatchResult[0]) {
       console.log(' match result[0]:', pathMatchResult[0])
@@ -44,12 +42,10 @@ app.prepare().then(() => {
       locale = devConfig.defaultLocale
     }
 
-    // req.path = url
-    req.url = url
-    req.locale = locale
-    req.messages = getMessages(locale)
+    console.log('lang::::::::', locale)
+    console.log('url::::::::', url)
 
-    return handle(req, res)
+    return app.render(req, res, url, { locale })
   })
 
   // 强制重定向设置语言环境
@@ -59,6 +55,10 @@ app.prepare().then(() => {
 
   // 其他路由
   server.get('*', (req, res) => {
+    if (!/^\/_next/webpack-hmr/i.test(req.path)) {
+      console.log('-------------------------router in:', req.path)
+      console.log('path match reg: ', req.path.match(localeRegExp))
+    }
     return handle(req, res)
   })
 
@@ -70,23 +70,3 @@ app.prepare().then(() => {
     console.log(`Ready on http://localhost:${port}`)
   })
 })
-
-/*
-  // createServer((req, res) => {
-  //   const accept = accepts(req)
-  //   console.log(supportedLanguages)
-  //   let locale = accept.language(accept.languages(supportedLanguages)) || 'zh-CN'
-  //   // locale = Array.isArray(locale) ? locale[0] : locale
-  //   // locale = 'zh-TW'
-
-  //   req.locale = locale
-  //   req.messages = getMessages(locale)
-
-  //   console.log(req.messages)
-
-  //   handle(req, res)
-  // }).listen(port, err => {
-  //   if (err) throw err
-  //   console.log(`> Ready on http://localhost:${port}`)
-  // })
-*/

@@ -10,8 +10,19 @@ import devConfig from '../configs/config.dev'
 import { initializeStore } from '../stores'
 import { isServer } from '../utils/env-utils'
 
+import zhCN from '../public/locales/zh-CN'
+import zhTW from '../public/locales/zh-TW'
+import enUS from '../public/locales/en-US'
+
 import '../public/styles/common.css'
 import 'react-toast-mobile/lib/react-toast-mobile.css'
+
+const appLocales = {
+  'zh-CN': zhCN,
+  'zh-TW': zhTW,
+  'en-US': enUS
+}
+
 
 export default class extends App {
 
@@ -34,32 +45,35 @@ export default class extends App {
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
-
-    // Get the `locale` and `messages` from the request object on the server.
-    // In the browser, use the same values that the server serialized.
-    const { req } = ctx
-    const {
-      locale = devConfig.defaultLocale,
-      messages = {}
-    } = req || window.__NEXT_DATA__.props
-
     return {
       initialState: getSnapshot(store),
       isServer,
-      pageProps,
-      locale,
-      messages
+      pageProps
     }
   }
 
   render () {
-    const { Component, pageProps, router, locale, messages } = this.props
-    this.store.app.setLocale(locale)
+    const { Component, pageProps, router } = this.props
+
+    console.log(router.query.locale)
+
+    let locale = router.query.locale
+    let appLocale = appLocales[locale]
+
+    if (!appLocale) {
+      locale = devConfig.defaultLocale
+      appLocale = appLocales[locale]
+    }
+
+    console.log('_app.js locale in app:', locale)
+    console.log('_app.js locale in app:', appLocale)
+
+    console.log('....自定义 app, 可以添加插件等全局初始化操作, 每个page初始化时都会执行')
 
     return (
       <IntlProvider
         locale={locale}
-        messages={messages}
+        messages={appLocale}
       >
         <Provider store={this.store}>
           <div className="app-container">

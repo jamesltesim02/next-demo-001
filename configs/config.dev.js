@@ -3,11 +3,11 @@
  */
 module.exports = {
   // 系统语言支持
-  languages: [
+  locales: [
     'zh-CN',
     'zh-TW',
     'en-US'
   ],
   // 系统默认语言
-  defaultLanguage: 'zh-CN'
+  defaultLocale: 'zh-CN'
 }
