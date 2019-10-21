@@ -29,7 +29,7 @@ const pages = [
   },
   {
     href: '/tsdemo',
-    id: 'home',
+    id: 'tsdemo',
   },
   {
     href: '/notfound',
