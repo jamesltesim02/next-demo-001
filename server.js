@@ -58,6 +58,8 @@ app.prepare().then(() => {
     res.redirect(`/${devConfig.defaultLocale}/`)
   })
 
+  // server.get('/users')
+
   // 其他路由
   server.get('*', (req, res) => {
     return handle(req, res)

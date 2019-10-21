@@ -1,29 +1,19 @@
 import React, { useState } from 'react'
-import Layout from '../../components/common/layout'
+import Layout from '../components/common/layout'
 
 export default () => {
   const [
     state,
     setState
   ] = useState({
-    count: 0,
-    name: '',
-    tempName: '',
+    count: 5,
+    name: 'zhangsan',
     editing: false
   })
+  const { count, name, editing } = state
+  const updateState = (newState) => setState({ ...state, ...newState })
 
-  const {
-    count,
-    name,
-    editing
-  } = state
-
-  const updateState = (newState) => {
-    setState({
-      ...state,
-      ...newState
-    })
-  }
+  const [age, setAge] = useState(18)
 
   let tempName = ''
 
@@ -31,7 +21,8 @@ export default () => {
     <Layout title="Hooks demo">
       <h3>hooks: useState</h3>
       <div>
-        count: {count}
+        <label>count:</label>
+        {count}
         &nbsp;&nbsp;&nbsp;
         <button onClick={() => updateState({ count: count + 1 })}>+</button>
         &nbsp;
@@ -41,7 +32,7 @@ export default () => {
         editing
         ? (
           <div>
-            name: &nbsp;
+            name:
             <input
               type="text"
               defaultValue={name}
@@ -57,7 +48,7 @@ export default () => {
         )
         : (
           <div>
-            name: &nbsp;
+            <label>name:</label>
             <span style={{
               display: 'inline-block',
               minWidth: '100px'
@@ -66,6 +57,23 @@ export default () => {
           </div>
         )
       }
+      <div>
+        <label>age:</label>
+        <span style={{
+          fontSize: '20px',
+          fontWeight: 'bolder',
+          color: age >= 18 ? '#ff5353' : '#99ee99'
+        }}>{age}</span>
+        &nbsp;&nbsp;&nbsp;
+        <button onClick={() => setAge(age + 1)}>+</button>
+        &nbsp;
+        <button onClick={() => setAge(Math.max(0, age - 1))}>-</button>
+      </div>
+      <style jsx>{`
+        label {
+          margin-right: 5px;
+        }
+      `}</style>
     </Layout>
   )
 }
