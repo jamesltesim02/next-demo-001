@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import { observer } from 'mobx-react'
 
-import dateFormat from '../../utils/date-format'
+import { dateFormat } from '../../utils/common-utils'
 
 export default observer(({ message, onDelete = () => {} }) => (
   <li className={message.readed ? '' : 'un-read'}>
-    <Link href={`/messages/detail?id=${message.id}`}>
+    {/* <Link href={`/messages/detail?id=${message.id}`}> */}
+    <Link href={'/messages/[id]'} as={`/messages/${message.id}`}>
     <a className="content">
       <h3>{message.title}</h3>
       <p>{message.content}</p>

@@ -15,16 +15,16 @@ export default class extends Document {
 
   render () {
     // Polyfill Intl API for older browsers
-    const polyfill = `https://cdn.polyfill.io/v3/polyfill.min.js?features=Intl.~locale.${
-      this.props.locale
-    }`
+    // const polyfill = `https://cdn.polyfill.io/v3/polyfill.min.js?features=Intl.~locale.${
+    //   this.props.locale
+    // }`
 
     return (
       <html>
         <Head/>
         <body>
           <Main />
-          <script src={polyfill} />
+          {/* <script src={polyfill} /> */}
           <script
             dangerouslySetInnerHTML={{
               __html: this.props.localeDataScript

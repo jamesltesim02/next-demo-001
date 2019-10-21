@@ -1,4 +1,4 @@
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import { inject, observer } from 'mobx-react'
 import { Link } from '../../utils/router-utils'
 
@@ -32,6 +32,10 @@ const pages = [
     id: 'tsdemo',
   },
   {
+    href: '/hooks',
+    id: 'hooks'
+  },
+  {
     href: '/notfound',
     id: 'notfound',
   },
@@ -39,10 +43,7 @@ const pages = [
 
 export default inject('store')(
   observer(
-    ({
-      intl = useIntl(),
-      store: { messages }
-    }) => (
+    ({ store: { messages } }) => (
       <nav>
         {
           pages.map((m) => (

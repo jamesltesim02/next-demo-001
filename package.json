@@ -21,7 +21,7 @@
     "babel-plugin-react-intl": "^4.1.20",
     "express": "^4.17.1",
     "intl": "^1.2.5",
-    "mobx": "^5.14.0",
+    "mobx": "^5.14.2",
     "mobx-react": "^6.1.4",
     "mobx-state-tree": "^3.14.1",
     "next": "^9.1.1",

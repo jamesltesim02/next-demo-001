@@ -1,11 +1,21 @@
 module.exports = {
   message: 'Content of English',
-  'common.menus.home': 'Home',
-  'common.menus.about': 'About',
-  'common.menus.profile': 'Profile',
-  'common.menus.todolist': 'TodoList',
-  'common.menus.messages': 'Messages',
-  'common.menus.toast': 'Toast',
-  'common.menus.tsdemo': 'TsDemo',
-  'common.menus.notfound': 'NotFound'
+  common: {
+    languages: {
+      'zh-CN': '简体中文',
+      'zh-TW': '繁體中文',
+      'en-US': 'English'
+    },
+    menus: {
+        home: 'Home',
+        about: 'About',
+        profile: 'Profile',
+        todolist: 'TodoList',
+        messages: 'Messages',
+        toast: 'Toast',
+        tsdemo: 'TsDemo',
+        hooks: 'HooksDemo',
+        notfound: 'NotFound'
+    }
+  },
 }

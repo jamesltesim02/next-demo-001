@@ -1,5 +1,7 @@
 const express = require('express')
 const next = require('next')
+// const flatObject = re
+const { flatObject } = require('./utils/common-utils')
 
 const opsConfig = require('./configs/config.ops')
 const devConfig = require('./configs/config.dev')
@@ -14,7 +16,7 @@ const handle = app.getRequestHandler()
 // locale. These will only be used in production, in dev the `defaultMessage` in
 // each message description in the source code will be used.
 const getMessages = locale => {
-  return require(`./public/locales/${locale}.js`)
+  return flatObject(require(`./public/locales/${locale}.js`))
 }
 
 // nextjs服务端对象准备就绪
@@ -44,7 +46,6 @@ app.prepare().then(() => {
       locale = devConfig.defaultLocale
     }
 
-    // req.path = url
     req.url = url
     req.locale = locale
     req.messages = getMessages(locale)
