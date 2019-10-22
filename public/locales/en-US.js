@@ -15,7 +15,11 @@ module.exports = {
         toast: 'Toast',
         tsdemo: 'TsDemo',
         hooks: 'HooksDemo',
+        users: 'Users',
         notfound: 'NotFound'
     }
+  },
+  users: {
+    title: 'User management'
   },
 }

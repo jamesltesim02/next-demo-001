@@ -15,6 +15,7 @@ const About = ({ stars }) => (
 
 About.getInitialProps = async ({ req }) => {
   // const res = await fetch('https://api.github.com/repos/zeit/next.js')
+  console.log('..........about init.')
   const res = await axios.get('https://api.github.com/repos/zeit/next.js')
   const json = res.data
   return { stars: json.stargazers_count }

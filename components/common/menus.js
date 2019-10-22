@@ -39,6 +39,10 @@ const pages = [
     href: '/notfound',
     id: 'notfound',
   },
+  {
+    href: '/users',
+    id: 'users'
+  }
 ]
 
 export default inject('store')(

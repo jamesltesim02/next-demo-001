@@ -15,7 +15,11 @@ module.exports = {
         toast: '提示和弹窗',
         tsdemo: 'TS示例',
         hooks: 'Hooks示例',
+        users: '用户管理',
         notfound: '无效页面'
     }
+  },
+  users: {
+    title: '用户管理'
   },
 }

@@ -62,7 +62,7 @@ export default () => {
         <span style={{
           fontSize: '20px',
           fontWeight: 'bolder',
-          color: age >= 18 ? '#ff5353' : '#99ee99'
+          color: age < 18 ? '#ff5353' : '#99ee99'
         }}>{age}</span>
         &nbsp;&nbsp;&nbsp;
         <button onClick={() => setAge(age + 1)}>+</button>
