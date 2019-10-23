@@ -16,6 +16,8 @@ module.exports = {
         tsdemo: 'fTS示例',
         hooks: 'fHooks示例',
         users: '用戶管理',
+        material: 'Material',
+        reactspring: 'React Spring',
         notfound: 'f无效页面'
     }
   },

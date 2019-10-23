@@ -1,30 +1,52 @@
 import Document, { Head, Main, NextScript } from 'next/document'
-
+import { ServerStyleSheets } from '@material-ui/styles'
+import theme from '../public/theme'
 
 export default class extends Document {
 
   static async getInitialProps(context) {
+    const {
+      req: { locale },
+      renderPage: originalRenderPage
+    } = context
+
+    const sheets = new ServerStyleSheets()
+
+    context.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: App => props => sheets.collect(<App {...props} />)
+      })
+
     const props = await super.getInitialProps(context)
-    const { req: { locale } } = context
 
     return {
       ...props,
-      locale
+      locale,
+      styles: [
+        <React.Fragment key="styles">
+          {props.styles}
+          {sheets.getStyleElement()}
+        </React.Fragment>
+      ]
     }
   }
 
   render () {
-    // Polyfill Intl API for older browsers
-    // const polyfill = `https://cdn.polyfill.io/v3/polyfill.min.js?features=Intl.~locale.${
-    //   this.props.locale
-    // }`
-
     return (
       <html>
-        <Head/>
+        <Head>
+          <meta charSet="utf-8" />
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
+        </Head>
         <body>
           <Main />
-          {/* <script src={polyfill} /> */}
           <script
             dangerouslySetInnerHTML={{
               __html: this.props.localeDataScript

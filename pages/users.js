@@ -1,6 +1,14 @@
 import { Component } from 'react'
 import { injectIntl } from 'react-intl'
+
+import Button from '@material-ui/core/Button'
+// import Modal from '@material-ui/core/Modal'
+// import Backdrop from '@material-ui/core/Backdrop';
+
 import Layout from '../components/common/layout'
+// import { Fade } from '../components/common/animations'
+import UserInput from '../components/users/user-input'
+
 import withUsers from '../api/users'
 
 class Users extends Component {
@@ -13,9 +21,10 @@ class Users extends Component {
   }
 
   constructor(props) {
-    super(props)
+    super()
     this.state = {
-      list: props.list
+      list: props.list,
+      adding: false
     }
   }
 
@@ -24,9 +33,48 @@ class Users extends Component {
   }
 
   render () {
-    const { intl } = this.props
+    const {
+      props: {
+        intl
+      },
+      state: {
+        list,
+        adding
+      }
+    } = this
+
     return (
       <Layout title={intl.formatMessage({ id: 'users.title' })}>
+        <div>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => this.setState({ adding: !adding })}
+          >添加用户信息</Button>
+        </div>
+        <UserInput>aaa</UserInput>
+        {/* <Modal
+          className="add-modal"
+          open={adding}
+          onClose={() => this.setState({ adding: false })}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500
+          }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Fade
+            className="add-fade-container"
+            in={adding}
+          >
+            <div className="add-panel">aaaa</div>
+          </Fade>
+        </Modal> */}
         <table>
           <caption>
             users
@@ -42,7 +90,7 @@ class Users extends Component {
           </thead>
           <tbody>
             {
-              this.state.list.map(item => (
+              list.map(item => (
                 <tr key={item.id}>
                   <td>{item.id}</td>
                   <td>{item.name}</td>
@@ -61,6 +109,17 @@ class Users extends Component {
             </tr>
           </tfoot>
         </table>
+        <style jsx>{`
+          .add-fade-container {
+            height: 100%;
+            width: 100%;
+          }
+          .add-panel {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 5px;
+          }
+        `}</style>
       </Layout>
     )
   }

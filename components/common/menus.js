@@ -36,12 +36,20 @@ const pages = [
     id: 'hooks'
   },
   {
-    href: '/notfound',
-    id: 'notfound',
+    href: '/material',
+    id: 'material'
+  },
+  {
+    href: '/reactspring',
+    id: 'reactspring'
   },
   {
     href: '/users',
     id: 'users'
+  },
+  {
+    href: '/notfound',
+    id: 'notfound',
   }
 ]
 

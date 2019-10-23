@@ -3,24 +3,22 @@ import Head from 'next/head'
 import Menus from './menus'
 import Languages from './languages'
 
-export default({
-      children,
-      title = 'A default title'
-    }) => (
-      <div>
-        <Head>
-          <meta charSet="utf8" />
-          <title>{title}</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </Head>
+export default ({
+  children,
+  title = 'A default title'
+}) => (
+  <div>
+    <Head>
+      <title>{title}</title>
+    </Head>
 
-        <header>
-          <Menus />
-        </header>
-        <hr />
-        {children}
-        <hr />
-        <Languages />
-        <footer>page footer.</footer>
-      </div>
-    )
+    <header>
+      <Menus />
+    </header>
+    <hr />
+    {children}
+    <hr />
+    <Languages />
+    <footer>page footer.</footer>
+  </div>
+)

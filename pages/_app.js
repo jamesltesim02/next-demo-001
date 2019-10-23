@@ -3,7 +3,10 @@ import React from 'react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'mobx-react'
 import { getSnapshot } from 'mobx-state-tree'
-import Toast from 'react-toast-mobile'
+
+import { ThemeProvider } from '@material-ui/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import theme from '../public/theme';
 
 import devConfig from '../configs/config.dev'
 
@@ -52,6 +55,13 @@ export default class extends App {
     }
   }
 
+  componentDidMount () {
+    const jssStyles = document.querySelector('#jss-server-side')
+    if (jssStyles) {
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
+  }
+
   render () {
     const { Component, pageProps, router, locale, messages } = this.props
     this.store.app.setLocale(locale)
@@ -61,25 +71,16 @@ export default class extends App {
         locale={locale}
         messages={messages}
       >
-        <Provider store={this.store}>
-          <div className="app-container">
-            <Toast />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Provider store={this.store}>
             <Component
               className="page-component"
               {...pageProps}
               router={router}
             />
-          </div>
-          <style global jsx>{`
-            .app-container {
-              width: 100%;
-              height: 100%;
-            }
-            .app-container > div.page-component {
-              min-height: 100%;
-            }
-          `}</style>
-        </Provider>
+          </Provider>
+        </ThemeProvider>
       </IntlProvider>
     )
   }

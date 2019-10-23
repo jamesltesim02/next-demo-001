@@ -16,6 +16,8 @@ module.exports = {
         tsdemo: 'TsDemo',
         hooks: 'HooksDemo',
         users: 'Users',
+        material: 'Material',
+        reactspring: 'React Spring',
         notfound: 'NotFound'
     }
   },

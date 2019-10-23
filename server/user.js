@@ -48,7 +48,7 @@ router.put('/:id', (req, res) => {
   const userIndex = users.findIndex(item => item.id === req.params.id)
   if (userIndex === -1) {
     res.status(404).send('User not found')
-    return
+    return 
   }
   const newUser = {
     ...user,

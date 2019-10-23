@@ -16,6 +16,8 @@ module.exports = {
         tsdemo: 'TS示例',
         hooks: 'Hooks示例',
         users: '用户管理',
+        material: 'Material',
+        reactspring: 'React Spring',
         notfound: '无效页面'
     }
   },
