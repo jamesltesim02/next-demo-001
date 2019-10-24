@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const next = require('next')
 // const flatObject = re
 const { flatObject } = require('./utils/common-utils')
@@ -25,6 +26,8 @@ const getMessages = locale => {
 // nextjs服务端对象准备就绪
 app.prepare().then(() => {
   const server = express()
+  server.use(bodyParser.json())
+  server.use(bodyParser.urlencoded({ extended: false }))
 
   // 构造语言环境路由匹配的正则
   const localeRegExp = new RegExp(`^\/((${devConfig.locales.join(')|(')}))`, 'i')

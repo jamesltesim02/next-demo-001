@@ -2,11 +2,8 @@ import { Component } from 'react'
 import { injectIntl } from 'react-intl'
 
 import Button from '@material-ui/core/Button'
-// import Modal from '@material-ui/core/Modal'
-// import Backdrop from '@material-ui/core/Backdrop';
 
 import Layout from '../components/common/layout'
-// import { Fade } from '../components/common/animations'
 import UserInput from '../components/users/user-input'
 
 import withUsers from '../api/users'
@@ -49,32 +46,14 @@ class Users extends Component {
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => this.setState({ adding: !adding })}
+            onClick={() => this.setState({ adding: true })}
           >添加用户信息</Button>
         </div>
-        <UserInput>aaa</UserInput>
-        {/* <Modal
-          className="add-modal"
-          open={adding}
+        <UserInput
+          adding={adding}
           onClose={() => this.setState({ adding: false })}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500
-          }}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <Fade
-            className="add-fade-container"
-            in={adding}
-          >
-            <div className="add-panel">aaaa</div>
-          </Fade>
-        </Modal> */}
+        />
+
         <table>
           <caption>
             users

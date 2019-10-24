@@ -5,7 +5,7 @@
 //     if (Array.isArray(rule.use)) {
 //       rule.use.forEach(u => {
 //         if (u.loader === 'css-loader' && u.options) {
-//           delete u.options.minimize;
+//           delete u.options.minimize
 //         }
 //       })
 //     }
@@ -34,10 +34,10 @@
 //   // },
 // })
 
-// const withCSS = require("@zeit/next-css");
-// const withSass = require("@zeit/next-sass");
-// module.exports = withCSS({});
-// module.exports = withSass({});
+// const withCSS = require("@zeit/next-css")
+// const withSass = require("@zeit/next-sass")
+// module.exports = withCSS({})
+// module.exports = withSass({})
 
 const withPlugins = require('next-compose-plugins')
 const withNextImage = require('next-images')

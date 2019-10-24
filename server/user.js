@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
   const user = users.find(item => item.id === newUser.id)
   if (user) {
     res.status(409).send('User already exists')
-    return;
+    return
   }
 
   users.push(newUser)

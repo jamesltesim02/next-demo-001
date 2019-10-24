@@ -1,9 +1,13 @@
 import { Component } from 'react'
+import { inject, observer } from 'mobx-react'
 import Axios , { CancelTokenSource, CancelToken } from 'axios'
 
-class BaseApi {
-  axios
+import { isServer } from '../utils/env-utils'
 
+@inject('store')
+@observer
+class BaseApi extends Component {
+  axios = null
   constructor (config) {
     this.axios = Axios.create(config)
     this.init()
@@ -31,8 +35,12 @@ class BaseApi {
   }
 
   handleResponseError (err) {
-    console.log('handle response error', err)
+    console.log('handle response error:', err.response)
     return Promise.reject(err)
+  }
+
+  render () {
+    return null
   }
 }
 

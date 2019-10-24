@@ -1,10 +1,10 @@
 const dateFormat = (source, pattern = 'yyyy-MM-dd HH:mm:ss') => {
   if (!source) {
-    return '';
+    return ''
   }
 
   if (['number', 'string'].includes(typeof source)) {
-    source = new Date(source);
+    source = new Date(source)
   }
 
   const dateFields = {
@@ -22,16 +22,16 @@ const dateFormat = (source, pattern = 'yyyy-MM-dd HH:mm:ss') => {
     mm: source.getMinutes(),
     s: source.getSeconds(),
     ss: source.getSeconds(),
-  };
+  }
 
   return pattern.replace(/yyyy|yy|MM|M|dd|d|HH|H|hh|h|mm|m|ss|s/g, (fm) => {
-    const value = dateFields[fm];
+    const value = dateFields[fm]
     if (fm.length === 1) {
-      return value;
+      return value
     }
-    return `0000${value}`.substr(-fm.length);
-  });
-};
+    return `0000${value}`.substr(-fm.length)
+  })
+}
 
 
 const __object_2_entries__ = (source, parentKey = null) => {

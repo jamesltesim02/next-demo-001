@@ -12,8 +12,7 @@ export default class extends Document {
 
     const sheets = new ServerStyleSheets()
 
-    context.renderPage = () =>
-      originalRenderPage({
+    context.renderPage = () => originalRenderPage({
         enhanceApp: App => props => sheets.collect(<App {...props} />)
       })
 

@@ -14,15 +14,15 @@ const Fade = React.forwardRef(function Fade(props, ref) {
     to: { opacity: open ? 1 : 0 },
     onStart: () => {
       if (open && onEnter) {
-        onEnter();
+        onEnter()
       }
     },
     onRest: () => {
       if (!open && onExited) {
-        onExited();
+        onExited()
       }
     },
-  });
+  })
 
   return (
     <animated.div
@@ -32,7 +32,7 @@ const Fade = React.forwardRef(function Fade(props, ref) {
     >
       {children}
     </animated.div>
-  );
-});
+  )
+})
 
 export default Fade
