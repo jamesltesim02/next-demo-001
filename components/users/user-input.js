@@ -40,7 +40,9 @@ const useStyles = makeStyles(theme => ({
 export default withUsers(function UserInput ({
   users,
   adding,
-  onClose = () => {}
+  onClose = () => {},
+  onFinish = () => {},
+  onError = () => {}
 }) {
   const classes = useStyles();
 
@@ -60,9 +62,13 @@ export default withUsers(function UserInput ({
 
   const { enqueueSnackbar } = useSnackbar()
   const handleSave = async () => {
-    await users.add(user)
-    enqueueSnackbar('添加成功', { variant: 'success' })
-    onClose()
+    try {
+      const result = await users.add(user)
+      enqueueSnackbar('添加成功', { variant: 'success' })
+      onFinish(result)
+    } catch (err) {
+      onError(err)
+    }
   }
 
   return (
@@ -104,12 +110,12 @@ export default withUsers(function UserInput ({
             margin="dense"
             id="age"
             label="Age"
-            type="text"
+            type="number"
             fullWidth
             variant="outlined"
             className={classes.textField}
             value={user.age}
-            onChange={({ target: { value } }) => handleValueChange('age')(+value)}
+            onChange={({ target }) => handleValueChange('age')({ target: { value: +target.value }})}
           />
           <TextField
             select

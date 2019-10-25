@@ -14,6 +14,8 @@ import devConfig from '../configs/config.dev'
 import { initializeStore } from '../stores'
 import { isServer } from '../utils/env-utils'
 
+import Toaster from '../components/common/toaster'
+
 import '../public/styles/common.css'
 import 'react-toast-mobile/lib/react-toast-mobile.css'
 
@@ -25,22 +27,13 @@ export default class extends App {
   }
 
   static async getInitialProps ({ Component, ctx }) {
-    //
-    // Use getInitialProps as a step in the lifecycle when
-    // we can initialize our store
-    //
     const store = initializeStore(isServer())
-    //
-    // Check whether the page being rendered by the App has a
-    // static getInitialProps method and if so call it
-    //
+
     let pageProps = {}
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
 
-    // Get the `locale` and `messages` from the request object on the server.
-    // In the browser, use the same values that the server serialized.
     const { req } = ctx
     const {
       locale = devConfig.defaultLocale,
@@ -71,7 +64,7 @@ export default class extends App {
       <IntlProvider
         locale={locale}
         messages={messages}
-      >
+      > 
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Provider store={this.store}>
@@ -82,7 +75,7 @@ export default class extends App {
                 horizontal: 'center',
               }}
             >
-              <div>aa</div>
+              <Toaster />
               <Component
                 className="page-component"
                 {...pageProps}

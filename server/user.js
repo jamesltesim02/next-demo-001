@@ -69,7 +69,7 @@ router.delete('/:id', (req, res) => {
     return
   }
 
-  const user = user.splice(userIndex, 1)[0]
+  const user = users.splice(userIndex, 1)[0]
 
   res.json(user)
 })

@@ -2,8 +2,9 @@ import { types, applySnapshot } from 'mobx-state-tree'
 
 import devConfig from '../configs/config.dev'
 
-import { Message, Messages } from './modules/messages'
 import { App } from './modules/app'
+import { Toast } from './modules/toast'
+import { Message, Messages } from './modules/messages'
 
 let store = null
 
@@ -11,6 +12,7 @@ const Store = types
   .model({
     messages: Messages,
     app: App,
+    toast: Toast
   })
 
 export const initializeStore = (isServer, snapshot = null) => {
@@ -48,7 +50,8 @@ export const initializeStore = (isServer, snapshot = null) => {
       messages,
       app: App.create({
         locale: devConfig.defaultLocale
-      })
+      }),
+      toast: Toast.create({ list: [] })
     })
   }
 

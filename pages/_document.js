@@ -1,6 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/styles'
-import theme from '../public/theme'
 
 export default class extends Document {
 

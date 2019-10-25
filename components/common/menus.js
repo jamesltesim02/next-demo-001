@@ -23,10 +23,10 @@ const pages = [
     href: '/messages',
     id: 'messages',
   },
-  {
-    href: '/toast',
-    id: 'toast',
-  },
+  // {
+  //   href: '/toast',
+  //   id: 'toast',
+  // },
   {
     href: '/tsdemo',
     id: 'tsdemo',
