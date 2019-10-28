@@ -20,12 +20,52 @@ const users = [
     age: 18,
     gender: 'male'
   },
+  {
+    id: 'u004',
+    name: '张三3',
+    age: 18,
+    gender: 'male'
+  },
+  {
+    id: 'u005',
+    name: '张三3',
+    age: 18,
+    gender: 'male'
+  },
+  {
+    id: 'u006',
+    name: '张三3',
+    age: 18,
+    gender: 'male'
+  },
+  {
+    id: 'u007',
+    name: '张三3',
+    age: 18,
+    gender: 'male'
+  },
 ]
 
 // list
 router.get('/', (req, res) => {
-  console.log('getting list result.')
-  res.json(users)
+  const [
+    page,
+    rowsOfPage
+  ] = [
+    +req.query.page || 1,
+    +req.query.rowsOfPage || 10
+  ]
+
+  const start = (page - 1) * req.query.rowsOfPage
+  const end = Math.min(page * rowsOfPage, users.length)
+
+  res.json({
+    list: users.slice(start, end),
+    page,
+    rowsOfPage,
+    totalRecord: users.length,
+    totalPage: parseInt((users.length + rowsOfPage - 1) / rowsOfPage)
+  })
 })
 
 // add

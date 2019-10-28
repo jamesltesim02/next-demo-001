@@ -11,14 +11,15 @@ export default inject('store')(
   observer(
     withUsers(({
       item,
+      current,
       users,
       store: {
         toast
       },
       onFinish = () => {},
-      onError = () => {}
+      onError = () => {},
+      onSetCurrent = () => {}
     }) => {
-      const [confirming, setConfirming] = useState(false)
       const handleDelete = async () => {
         console.log('delete:', item.id)
         try {
@@ -37,19 +38,19 @@ export default inject('store')(
           <TableCell>{item.age}</TableCell>
           <TableCell>{item.gender}</TableCell>
           <TableCell>
-                {
-                  confirming
-                  ? (
-                    <ClickAwayListener onClickAway={() => setConfirming(false)}>
-                      <Button
-                        onClick={() => handleDelete()}
-                        color="secondary"
-                        variant="contained"
-                      >确认</Button>
-                    </ClickAwayListener>
-                  )
-                  : <Button onClick={() => setConfirming(true)}>删除</Button>
-                }
+          {
+            current === item
+            ? (
+              <ClickAwayListener onClickAway={() => onSetCurrent(null)}>
+                <Button
+                  onClick={() => handleDelete()}
+                  color="secondary"
+                  variant="contained"
+                >确认</Button>
+              </ClickAwayListener>
+            )
+            : <Button onClick={() => onSetCurrent(item)}>删除</Button>
+          }
           </TableCell>
         </TableRow>
       )

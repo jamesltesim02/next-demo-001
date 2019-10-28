@@ -7,8 +7,10 @@ import Button from '@material-ui/core/Button'
 import Table from '@material-ui/core/Table'
 import TableHead from '@material-ui/core/TableHead'
 import TableBody from '@material-ui/core/TableBody'
+import TableFooter from '@material-ui/core/TableFooter'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
+import TablePagination from '@material-ui/core/TablePagination'
 
 import Layout from '../components/common/layout'
 import UserInput from '../components/users/user-input'
@@ -16,31 +18,38 @@ import UserItem from '../components/users/user-item'
 
 import withUsers from '../api/users'
 
+const defaultRowsOfPage = 10
+
 class Users extends Component {
   static async getInitialProps ({ users }) {
-    const list = await users.list()
+    const result = await users.list({
+      page: 1,
+      rowsPerPage: defaultRowsOfPage
+    }) || {}
 
-    return {
-      list
-    }
+    return result
   }
 
-  constructor(props) {
+  constructor(props = {}) {
     super()
+    const {
+      list = [],
+      ...result
+    } = props
     this.state = {
-      list: props.list,
-      adding: false
+      list,
+      ...result,
+      adding: false,
+      current: null,
     }
   }
 
-  queryList () {
-    console.log('queryList: this props: ', this.props)
-  }
+  async queryList (params = { page: 1, rowsOfPage: defaultRowsOfPage}) {
+    const result = await this.props.users.list(params) || {}
 
-  async reloadList () {
-    console.log('will reload user list.')
     this.setState({
-      list: await this.props.users.list()
+      list: [],
+      ...result
     })
   }
 
@@ -54,7 +63,12 @@ class Users extends Component {
       },
       state: {
         list,
-        adding
+        page = 1,
+        rowsOfPage = defaultRowsOfPage,
+        totalRecord = 0,
+        totalPage = 0,
+        adding,
+        current
       },
     } = this
 
@@ -72,7 +86,7 @@ class Users extends Component {
           onClose={() => this.setState({ adding: false })}
           onFinish={() => {
             this.setState({ adding: false})
-            this.reloadList()
+            this.queryList()
           }}
         />
 
@@ -92,10 +106,39 @@ class Users extends Component {
                 <UserItem
                   item={item}
                   key={item.id}
-                  onFinish={this.reloadList.bind(this)}
+                  current={current}
+                  onFinish={this.queryList.bind(this)}
+                  onSetCurrent={current => this.setState({ current })}
                 />
               ))}
             </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[ 2, 5, 10 ]}
+                  colSpan={5}
+                  count={totalRecord}
+                  rowsPerPage={rowsOfPage}
+                  page={page - 1}
+                  SelectProps={{
+                    native: false
+                  }}
+                  onChangePage={(event, newPage) => {
+                    console.log(newPage)
+                    this.queryList({
+                      page: newPage + 1,
+                      rowsOfPage
+                    })
+                  }}
+                  onChangeRowsPerPage={(event, { props: { value } }) => {
+                    this.queryList({
+                      page,
+                      rowsOfPage: value
+                    })
+                  }}
+                />
+              </TableRow>
+            </TableFooter>
           </Table>
         </Paper>
       </Layout>
@@ -109,7 +152,8 @@ const styles = () => ({
     overflowX: 'auto'
   },
   table: {
-    minWidth: 400
+    minWidth: 400,
+    textAlign: 'center'
   }
 })
 

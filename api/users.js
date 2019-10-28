@@ -9,8 +9,8 @@ class UserApi extends BaseApi {
     })
   }
 
-  list () {
-    return super.get('/users')
+  list (params) {
+    return super.get('/users', { params })
   }
 
   add (user) {
