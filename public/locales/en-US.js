@@ -6,6 +6,10 @@ module.exports = {
       'zh-TW': '繁體中文',
       'en-US': 'English'
     },
+    apicode: {
+      409: 'Data already exists',
+      404: 'Data not found',
+    },
     menus: {
         home: 'Home',
         about: 'About',

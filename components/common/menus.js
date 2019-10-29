@@ -6,14 +6,17 @@ const pages = [
   {
     href: '/',
     id: 'home',
+    prefetch: true
   },
   {
     href: '/about',
     id: 'about',
+    prefetch: true
   },
   {
     href: '/profile',
     id: 'profile',
+    prefetch: true
   },
   {
     href: '/todolist',
@@ -63,6 +66,7 @@ export default inject('store')(
               href={m.href}
               scroll={false}
               key={m.id}
+              prefetch={!!m.prefetch}
             >
               <a title="home page">
                 <FormattedMessage id={`common.menus.${m.id}`} />

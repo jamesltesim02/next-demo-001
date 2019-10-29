@@ -9,5 +9,10 @@ module.exports = {
     'en-US'
   ],
   // 系统默认语言
-  defaultLocale: 'zh-CN'
+  defaultLocale: 'zh-CN',
+  // 业务code
+  businessCodes: [
+    404,
+    409
+  ],
 }

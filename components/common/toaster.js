@@ -1,8 +1,6 @@
 import React from 'react'
 import { autorun } from 'mobx'
 import { inject, observer } from 'mobx-react'
-import { isServer } from '../../utils/env-utils'
-import { initializeStore } from '../../stores'
 import { withSnackbar } from 'notistack'
 
 @inject('store')

@@ -6,6 +6,10 @@ module.exports = {
       'zh-TW': '繁體中文',
       'en-US': 'English'
     },
+    apicode: {
+      409: 'f当前数据已存在',
+      404: 'f未找到相关数据',
+    },
     menus: {
         home: 'f首页',
         about: 'f关于',

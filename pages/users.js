@@ -108,7 +108,10 @@ class Users extends Component {
                   key={item.id}
                   current={current}
                   onFinish={this.queryList.bind(this)}
-                  onSetCurrent={current => this.setState({ current })}
+                  onSetCurrent={current => {
+                    this.setState({ current })
+                    console.log('user list current:', current)
+                  }}
                 />
               ))}
             </TableBody>

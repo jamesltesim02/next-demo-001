@@ -3,10 +3,11 @@ import Axios , { CancelTokenSource, CancelToken } from 'axios'
 
 import { isServer } from '../utils/env-utils'
 import { initializeStore } from '../stores'
+import devConfig from '../configs'
 
 class BaseApi{
   axios = null
-  store = null
+  toast = null
   constructor (config) {
     this.axios = Axios.create(config)
     this.init()
@@ -25,7 +26,7 @@ class BaseApi{
   }
 
   setStore (store) {
-    this.store = store
+    this.toast = store.toast
   }
 
   handleRequest (conf) {
@@ -49,7 +50,9 @@ class BaseApi{
       data
     } = err.response
 
-    this.store.toast.error(`[${status}]${data}`)
+    // const message = devConfig.businessCodes.includes(status)
+
+    this.toast.error(`[${status}]${data}`)
     console.log('handle response error:', err.response)
     return Promise.reject(err)
   }
