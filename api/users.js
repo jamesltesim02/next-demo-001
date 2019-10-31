@@ -2,11 +2,9 @@ import useApi, { BaseApi } from './base'
 
 import OpsConfig from '../configs/config.ops'
 
-class UserApi extends BaseApi {
+class UsersApi extends BaseApi {
   constructor () {
-    super({
-      baseURL: OpsConfig.API_URL
-    })
+    super({ baseURL: OpsConfig.API_URL })
   }
 
   list (params) {
@@ -30,4 +28,4 @@ class UserApi extends BaseApi {
   }
 }
 
-export default (SubComponent) => useApi(SubComponent, { users: UserApi })
+export default (SubComponent) => useApi(SubComponent, { users: UsersApi })

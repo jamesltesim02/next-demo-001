@@ -54,6 +54,7 @@ module.exports = withPlugins(
   ],
   {
     // distDir: 'dist',
+    crossOrigin: 'anonymous',
     generateBuildId: () => 'nd-build-001',
     assetPrefix: OpsConfig.CDN_URL,
     publicRuntimeConfig: OpsConfig

@@ -21,12 +21,7 @@ export const Toast = types.model(
     })
   },
   variantToast (message, variant) {
-    self.addToast({
-      message,
-      options: {
-        variant
-      }
-    })
+    self.optionsToast(message, { variant })
   },
   info (message) {
     self.variantToast(message, 'info')

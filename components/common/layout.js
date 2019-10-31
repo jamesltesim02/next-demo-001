@@ -1,7 +1,7 @@
 import Head from 'next/head'
-
 import Menus from './menus'
 import Languages from './languages'
+import Version from './version'
 
 export default ({
   children,
@@ -19,6 +19,9 @@ export default ({
     {children}
     <hr />
     <Languages />
-    <footer>page footer.</footer>
+    <footer>
+      page footer.
+      <Version />
+    </footer>
   </div>
 )

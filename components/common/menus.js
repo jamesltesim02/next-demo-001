@@ -66,7 +66,7 @@ export default inject('store')(
               href={m.href}
               scroll={false}
               key={m.id}
-              prefetch={!!m.prefetch}
+              {...(!m.prefetch ? { prefetch: false } : {})}
             >
               <a title="home page">
                 <FormattedMessage id={`common.menus.${m.id}`} />

@@ -3,11 +3,13 @@ import Axios , { CancelTokenSource, CancelToken } from 'axios'
 
 import { isServer } from '../utils/env-utils'
 import { initializeStore } from '../stores'
-import devConfig from '../configs'
+
+import OpsConfig from '../configs/config.ops'
+import devConfig from '../configs/config.dev'
 
 class BaseApi{
   axios = null
-  toast = null
+  store = null
   constructor (config) {
     this.axios = Axios.create(config)
     this.init()
@@ -26,11 +28,12 @@ class BaseApi{
   }
 
   setStore (store) {
-    this.toast = store.toast
+    this.store = store
   }
 
   handleRequest (conf) {
-    console.log('handle request')
+    conf.headers['Accept-Language'] = this.store.app.locale
+    conf.headers.Authorization = 'aa123123'
     return conf
   }
 
@@ -50,11 +53,24 @@ class BaseApi{
       data
     } = err.response
 
-    // const message = devConfig.businessCodes.includes(status)
+    if (devConfig.businessCodes.includes(status)) {
+      this.store.toast.optionsToast(
+        `common.apicode.${status}`,
+        {
+          variant: 'error',
+          intl: true
+        }
+      )
+    } else {
+      this.store.toast.error(data)
+      this.log({ content: JSON.stringify(err) })
+    }
 
-    this.toast.error(`[${status}]${data}`)
-    console.log('handle response error:', err.response)
     return Promise.reject(err)
+  }
+
+  log (content) {
+    this.post('/logs', content, { baseURL: OpsConfig.API_URL })
   }
 
   render () {
@@ -64,15 +80,12 @@ class BaseApi{
 
 ['get', 'post', 'put', 'delete'].forEach(method => {
   BaseApi.prototype[method] = function (...args) {
-    console.log(`handle method ${method} ${JSON.stringify(args)}`)
+    console.log(`will request method ${method} ${JSON.stringify(args)}`)
     return this.axios[method](...args)
   }
 })
 
-export { BaseApi }
-
-export default (SubComponent, api) => {
-
+const useApi = (SubComponent, api) => {
   const createApiProps = (store) => {
     const apiProps = {}
 
@@ -125,3 +138,11 @@ export default (SubComponent, api) => {
   return ApiWrappedComponent
 }
 
+const withBaseApi = (SubComponent) => useApi(SubComponent, { api: BaseApi })
+
+export {
+  BaseApi,
+  withBaseApi
+}
+
+export default useApi

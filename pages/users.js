@@ -108,10 +108,7 @@ class Users extends Component {
                   key={item.id}
                   current={current}
                   onFinish={this.queryList.bind(this)}
-                  onSetCurrent={current => {
-                    this.setState({ current })
-                    console.log('user list current:', current)
-                  }}
+                  onSetCurrent={current => this.setState({ current })}
                 />
               ))}
             </TableBody>
@@ -127,7 +124,6 @@ class Users extends Component {
                     native: false
                   }}
                   onChangePage={(event, newPage) => {
-                    console.log(newPage)
                     this.queryList({
                       page: newPage + 1,
                       rowsOfPage

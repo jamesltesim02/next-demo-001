@@ -5,7 +5,8 @@ const next = require('next')
 const { flatObject } = require('./utils/common-utils')
 
 // api router for test
-const userRouter = require('./server/user')
+const usersRouter = require('./server/users')
+const logsRouter = require('./server/logs')
 
 const opsConfig = require('./configs/config.ops')
 const devConfig = require('./configs/config.dev')
@@ -64,7 +65,8 @@ app.prepare().then(() => {
     res.redirect(`/${devConfig.defaultLocale}/`)
   })
 
-  server.use('/api/users', userRouter)
+  server.use('/api/users', usersRouter)
+  server.use('/api/logs', logsRouter)
 
   // 其他路由
   server.get('*', (req, res) => {

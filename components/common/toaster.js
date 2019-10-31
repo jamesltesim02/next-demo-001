@@ -1,6 +1,7 @@
 import React from 'react'
 import { autorun } from 'mobx'
 import { inject, observer } from 'mobx-react'
+import { injectIntl } from 'react-intl'
 import { withSnackbar } from 'notistack'
 
 @inject('store')
@@ -25,12 +26,21 @@ class Toaster extends React.Component {
         }
       } = this
 
-      list.forEach(({ id, message, options }) => {
+      list.forEach(({ id, message, options = {} }) => {
         if (displayed.includes(id)) {
           return
         }
 
-        this.props.enqueueSnackbar(message, options)
+        const {
+          intl,
+          ...newOptions
+        } = options
+
+        if (intl) {
+          message = this.props.intl.formatMessage({ id: message })
+        }
+
+        this.props.enqueueSnackbar(message, newOptions)
         this.storeDisplayed(id)
         removeToast(id)
       })
@@ -42,4 +52,4 @@ class Toaster extends React.Component {
   }
 }
 
-export default withSnackbar(Toaster)
+export default withSnackbar(injectIntl(Toaster))

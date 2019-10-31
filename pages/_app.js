@@ -14,6 +14,8 @@ import devConfig from '../configs/config.dev'
 import { initializeStore } from '../stores'
 import { isServer } from '../utils/env-utils'
 
+import ErrorCatcher from '../components/common/error-catcher'
+
 import Toaster from '../components/common/toaster'
 
 import '../public/styles/common.css'
@@ -61,30 +63,32 @@ export default class extends App {
     this.store.app.setLocale(locale)
 
     return (
-      <IntlProvider
-        locale={locale}
-        messages={messages}
-      > 
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Provider store={this.store}>
-            <SnackbarProvider
-              maxSnack={5}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-            >
-              <Toaster />
-              <Component
-                className="page-component"
-                {...pageProps}
-                router={router}
-              />
-            </SnackbarProvider>
-          </Provider>
-        </ThemeProvider>
-      </IntlProvider>
+      <ErrorCatcher>
+        <IntlProvider
+          locale={locale}
+          messages={messages}
+        > 
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Provider store={this.store}>
+              <SnackbarProvider
+                maxSnack={5}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+              >
+                <Toaster />
+                <Component
+                  className="page-component"
+                  {...pageProps}
+                  router={router}
+                />
+              </SnackbarProvider>
+            </Provider>
+          </ThemeProvider>
+        </IntlProvider>
+      </ErrorCatcher>
     )
   }
 }

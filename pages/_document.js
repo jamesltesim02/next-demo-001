@@ -51,11 +51,7 @@ export default class extends Document {
             }}
           />
           <NextScript />
-          <div style={{
-            display: 'none'
-          }}>
-            {process.env.NODE_ENV}
-          </div>
+          <div style={{ display: 'none' }}>{process.env.NODE_ENV}</div>
         </body>
       </html>
     )
