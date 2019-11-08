@@ -22,6 +22,7 @@ module.exports = {
         users: 'Users',
         material: 'Material',
         reactspring: 'React Spring',
+        logs: 'log',
         notfound: 'NotFound'
     }
   },

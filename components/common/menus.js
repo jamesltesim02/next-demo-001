@@ -51,6 +51,10 @@ const pages = [
     id: 'users'
   },
   {
+    href: '/logs',
+    id: 'logs'
+  },
+  {
     href: '/notfound',
     id: 'notfound',
   }

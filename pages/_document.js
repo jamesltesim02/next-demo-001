@@ -45,11 +45,11 @@ export default class extends Document {
         </Head>
         <body>
           <Main />
-          <script
+          {/* <script
             dangerouslySetInnerHTML={{
               __html: this.props.localeDataScript
             }}
-          />
+          /> */}
           <NextScript />
           <div style={{ display: 'none' }}>{process.env.NODE_ENV}</div>
         </body>

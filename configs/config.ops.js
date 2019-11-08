@@ -9,5 +9,6 @@ module.exports = {
   // cdn地址
   CDN_URL: isProd ? 'http://10.96.17.107:3800' : '',
   // 接口地址
-  API_URL: 'http://10.96.17.107:3001/api',
+  // API_URL: 'http://10.96.17.107:3001/api',
+  API_URL: 'http://localhost:3001/api',
 }

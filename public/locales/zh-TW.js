@@ -22,6 +22,7 @@ module.exports = {
         users: '用戶管理',
         material: 'Material',
         reactspring: 'React Spring',
+        logs: 'f写日志',
         notfound: 'f无效页面'
     }
   },
