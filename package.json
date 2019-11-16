@@ -21,6 +21,7 @@
     "@material-ui/core": "^4.5.1",
     "@material-ui/styles": "^4.5.0",
     "axios": "^0.19.0",
+    "babel-eslint": "^10.0.3",
     "babel-plugin-react-intl": "^4.1.20",
     "clsx": "^1.0.4",
     "express": "^4.17.1",
@@ -46,6 +47,14 @@
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-config-standard-react": "^9.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-standard": "^4.0.1",
     "less": "^2.7.3",
     "next-compose-plugins": "^2.2.0",
     "next-images": "^1.2.0",
@@ -74,5 +83,28 @@
         }
       ]
     ]
-  }
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": ["standard", "standard-react"],
+    "rules": {
+      
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }
