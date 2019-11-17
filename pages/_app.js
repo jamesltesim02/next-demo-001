@@ -26,6 +26,7 @@ export default class extends App {
   constructor (props) {
     super(props)
     this.store = initializeStore(props.isServer, props.initialState)
+    // this.store.app.setLocale(props.locale)
   }
 
   static async getInitialProps ({ Component, ctx }) {
@@ -41,6 +42,8 @@ export default class extends App {
       locale = devConfig.defaultLocale,
       messages = {}
     } = req || window.__NEXT_DATA__.props
+
+    store.app.setLocale(locale)
 
     return {
       initialState: getSnapshot(store),
@@ -60,7 +63,6 @@ export default class extends App {
 
   render () {
     const { Component, pageProps, router, locale, messages } = this.props
-    this.store.app.setLocale(locale)
 
     return (
       <ErrorCatcher>

@@ -1,5 +1,5 @@
-import { FormattedMessage } from 'react-intl'
 import { inject, observer } from 'mobx-react'
+import M from '../common/m'
 import { Link } from '../../utils/router-utils'
 
 const pages = [
@@ -69,7 +69,7 @@ export default inject('store')(
               {...(!m.prefetch ? { prefetch: false } : {})}
             >
               <a title="home page">
-                <FormattedMessage id={`common.menus.${m.id}`} />
+                <M id={`common.menus.${m.id}`} />
                 {
                   m.id === 'messages'
                   ? `(${messages.unReadCount})` : null

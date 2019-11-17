@@ -1,7 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const next = require('next')
-// const flatObject = re
 const { flatObject } = require('./utils/common-utils')
 
 // api router for test

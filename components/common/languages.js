@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
-import { FormattedMessage } from 'react-intl'
+import M from '../common/m'
 import devConfig from '../../configs/config.dev'
 
 export default withRouter(({ router: { pathname } }) => (
@@ -19,7 +19,7 @@ export default withRouter(({ router: { pathname } }) => (
             prefetch={false}
           >
             <a type="primary">
-              <FormattedMessage id={`common.languages.${locale}`} />
+              <M id={`common.languages.${locale}`} />
             </a>
           </Link>
         </Fragment>
