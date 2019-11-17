@@ -1,7 +1,7 @@
 import { withRouter } from 'next/router'
 import { inject, observer } from 'mobx-react'
-
 import { dateFormat } from '../../utils/common-utils'
+
 import Layout from '../../components/common/layout'
 
 @inject('store')

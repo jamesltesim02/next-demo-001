@@ -22,14 +22,15 @@ const dateFormat = (source, pattern = 'yyyy-MM-dd HH:mm:ss') => {
     mm: source.getMinutes(),
     s: source.getSeconds(),
     ss: source.getSeconds(),
+    ms: source.getMilliseconds()
   }
 
-  return pattern.replace(/yyyy|yy|MM|M|dd|d|HH|H|hh|h|mm|m|ss|s/g, (fm) => {
+  return pattern.replace(/yyyy|yy|MM|M|dd|d|HH|H|hh|h|mm|m|ss|s|ms/g, (fm) => {
     const value = dateFields[fm]
     if (fm.length === 1) {
       return value
     }
-    return `0000${value}`.substr(-fm.length)
+    return fm === 'ms' ? value : `0000${value}`.substr(-fm.length)
   })
 }
 

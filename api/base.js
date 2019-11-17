@@ -48,6 +48,11 @@ class BaseApi{
   }
 
   handleResponseError (err) {
+    if (!err.response) {
+      this.store.toast.error('未知网络错误')
+      return Promise.reject(err)
+    }
+
     const {
       status,
       data

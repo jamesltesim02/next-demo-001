@@ -44,7 +44,7 @@ export default withUsers(function UserInput ({
   onFinish = () => {},
   onError = () => {}
 }) {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const [user, setUser] = React.useState({
     id: `u${parseInt(Math.random() * 999 + 1000)}`,
