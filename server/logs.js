@@ -1,5 +1,5 @@
 const express = require('express')
-const ioredis = require('ioredis')
+// const ioredis = require('ioredis')
 
 const router = express.Router()
 
@@ -10,14 +10,14 @@ const genderateId = (() => {
   }
 })()
 
-const pub = new ioredis()
+// const pub = new ioredis()
 
 router.post('/', (req, res) => {
   try {
     const log = req.body
     // log.id = genderateId()
-    console.log(log)
-    pub.publish('logstash-chan', JSON.stringify(log))
+    // console.log(log)
+    // pub.publish('logstash-chan', JSON.stringify(log))
   } catch (err) {
     console.log(err)
   } finally {
